@@ -67,7 +67,6 @@
             background-color: white;
         }
 
-        /* المؤشر العلوي */
         .pointer {
             position: absolute;
             top: -20px;
@@ -81,7 +80,6 @@
             border: 2px solid #991b1b;
         }
 
-        /* زر اللف في منتصف العجلة */
         .spin-btn-center {
             position: absolute;
             z-index: 100;
@@ -90,8 +88,8 @@
             transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
-            background: #ffffff; /* أبيض */
-            border: 6px solid #facc15; /* أصفر */
+            background: #ffffff;
+            border: 6px solid #facc15;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -105,25 +103,11 @@
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .spin-btn-center:active {
-            transform: translate(-50%, -50%) scale(0.9);
-        }
-
-        .spin-btn-center:disabled {
-            background: #e5e7eb;
-            border-color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        /* الدائرة الحمراء الداخلية للزر */
         .spin-btn-inner {
             width: 30px;
             height: 30px;
-            background: #991b1b; /* أحمر */
+            background: #991b1b;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .character-container {
@@ -139,6 +123,8 @@
             max-width: 400px;
             height: auto;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+            opacity: 1;
+            transition: opacity 0.3s;
         }
 
         .attempts-badge {
@@ -206,8 +192,7 @@
     <!-- شاشة التسجيل -->
     <div id="authModal" class="modal active-modal">
         <div class="modal-content">
-            <!-- استخدام الصورة الجديدة -->
-            <img src="Asset 7@4x-8.jpg" alt="الجدة حبوه" class="modal-grandma">
+            <img src="Asset%207@4x-8.jpg" alt="الجدة حبوه" class="modal-grandma" onerror="this.src='Asset 7@4x-8.jpg'">
             <h2 class="text-3xl font-black text-red-900 mb-2">عجلة حبوه</h2>
             <p class="text-gray-600 mb-6 text-sm">سجل بياناتك لتدخل السحب على ألذ أنواع المعمول</p>
             
@@ -228,18 +213,14 @@
 
         <div class="wheel-wrapper">
             <div class="pointer"></div>
-            
-            <!-- زر اللف في منتصف العجلة -->
             <div id="spinBtn" class="spin-btn-center">
                 <div class="spin-btn-inner"></div>
             </div>
-            
             <canvas id="wheelCanvas" width="400" height="400"></canvas>
         </div>
 
         <div class="character-container">
-            <!-- استخدام الصورة الجديدة هنا أيضاً -->
-            <img src="Asset 7@4x-8.jpg" alt="الجدة ترحب" class="character-img" id="mainChar">
+            <img src="Asset%207@4x-8.jpg" alt="الجدة حبوه" class="character-img" id="mainChar" onerror="this.src='Asset 7@4x-8.jpg'">
         </div>
 
         <div class="attempts-badge">
@@ -250,8 +231,7 @@
     <!-- شاشة الفوز -->
     <div id="winModal" class="modal">
         <div class="modal-content border-[10px] border-red-600">
-            <!-- استخدام الصورة الجديدة هنا أيضاً -->
-            <img src="Asset 7@4x-8.jpg" alt="الجدة تهنئك" class="modal-grandma">
+            <img src="Asset%207@4x-8.jpg" alt="الجدة حبوه" class="modal-grandma" id="winChar" onerror="this.src='Asset 7@4x-8.jpg'">
             <h2 class="text-3xl font-black text-red-800 mb-2">يا بختك!</h2>
             <p id="winnerWelcome" class="text-md text-red-600 font-bold mb-2"></p>
             <p class="text-md mb-4 text-gray-700">حبوه تهديك:</p>
@@ -279,7 +259,6 @@
             const phone = document.getElementById('userPhone').value.trim();
 
             if (name === '' || phone === '') {
-                alert("يرجى ملء جميع الحقول");
                 return;
             }
 
@@ -319,7 +298,6 @@
 
             maamoulData.forEach((item, i) => {
                 const angle = i * sliceAngle;
-                
                 ctx.beginPath();
                 ctx.fillStyle = item.color;
                 ctx.moveTo(centerX, centerY);
@@ -334,15 +312,12 @@
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(angle + sliceAngle / 2);
-                
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = "white";
                 ctx.font = "bold 13px Cairo";
-                
                 const textX = radius * 0.65; 
                 ctx.fillText(item.name, textX, 0);
-                
                 ctx.restore();
             });
         }
@@ -379,10 +354,7 @@
         }
 
         spinBtn.addEventListener('click', spin);
-
-        window.onload = () => {
-            drawWheel();
-        };
+        window.onload = drawWheel;
     </script>
 </body>
 </html>
